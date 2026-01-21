@@ -1,0 +1,8 @@
+/home/gregorym/Code/test-sdl-game/build/CMakeFiles/main.dir
+/home/gregorym/Code/test-sdl-game/build/CMakeFiles/edit_cache.dir
+/home/gregorym/Code/test-sdl-game/build/CMakeFiles/rebuild_cache.dir
+/home/gregorym/Code/test-sdl-game/build/vendored/SDL/CMakeFiles/SDL3-shared.dir
+/home/gregorym/Code/test-sdl-game/build/vendored/SDL/CMakeFiles/SDL3_test.dir
+/home/gregorym/Code/test-sdl-game/build/vendored/SDL/CMakeFiles/SDL_uclibc.dir
+/home/gregorym/Code/test-sdl-game/build/vendored/SDL/CMakeFiles/edit_cache.dir
+/home/gregorym/Code/test-sdl-game/build/vendored/SDL/CMakeFiles/rebuild_cache.dir
