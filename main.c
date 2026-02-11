@@ -1,12 +1,13 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3_image/SDL_image.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
 #define SDL_FLAGS SDL_INIT_VIDEO
 
-#define WINDOW_TITLE "Close Window"
+#define WINDOW_TITLE "Background and Icon"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
@@ -15,6 +16,7 @@ struct Game
 {
 	SDL_Window *window;
 	SDL_Renderer *renderer;
+	SDL_Texture *background;
 	SDL_Event event;
 	bool is_running;
 };
@@ -29,6 +31,9 @@ void game_run(struct Game *g);
 
 bool game_init_sdl(struct Game *g)
 {
+	//Proper way to set Icon on my version of Fedora
+	SDL_SetHint(SDL_HINT_APP_ID, "com.gregorym.testgame");
+	
 	if (!SDL_Init(SDL_FLAGS))
 	{
 		fprintf(stderr, "Error initializing SDL3: %s\n", SDL_GetError());
@@ -48,7 +53,39 @@ bool game_init_sdl(struct Game *g)
 		fprintf(stderr, "Error creating renderer: %s\n", SDL_GetError());
 		return false;
 	}
+
+	/* 
+	 * Not needed due to oddity with Icons on Wayland Gnome Desktops (like Fedora)
+	 * Icon is set in above call to SDL_SetHint()
+	SDL_Surface *icon_surf = IMG_Load("images/tm.png");
+	if (!icon_surf)
+	{
+		fprintf(stderr, "Error loading surface: %s\n", SDL_GetError());
+		return false;
+	}
+
+	if (!SDL_SetWindowIcon(g->window, icon_surf))
+	{
+		fprintf(stderr, "Error setting Window Icon: %s\n", SDL_GetError());
+		SDL_DestroySurface(icon_surf);
+		return false;
+	}
+
+	SDL_DestroySurface(icon_surf);
+	*/
 	
+	return true;
+}
+
+bool game_load_media(struct Game *g)
+{
+	g->background = IMG_LoadTexture(g->renderer, "images/cyberpunk.png");
+	if (!g->background)
+	{
+		fprintf(stderr, "Error loading texture: %s\n", SDL_GetError());
+		return false;
+	}
+
 	return true;
 }
 
@@ -70,6 +107,11 @@ bool game_new(struct Game **game)
 		return false;
 	}
 
+	if (!game_load_media(g))
+	{
+		return false;
+	}
+
 	g->is_running = true;
 	return true;
 }
@@ -79,6 +121,12 @@ void game_free(struct Game **game)
 	if (*game)
 	{
 		struct Game *g = *game;
+
+		if (g->background)
+		{
+			SDL_DestroyTexture(g->background);
+			g->background = NULL;
+		}
 
 		if (g->renderer)
 		{
@@ -130,6 +178,9 @@ void game_events(struct Game *g)
 void game_draw(struct Game *g)
 {
 	SDL_RenderClear(g->renderer);
+	
+	SDL_RenderTexture(g->renderer, g->background, NULL, NULL);
+
 	SDL_RenderPresent(g->renderer);
 }
 
