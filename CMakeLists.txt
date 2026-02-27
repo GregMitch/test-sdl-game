@@ -32,8 +32,19 @@ set(SDLMIXER_VORBIS_VORBISFILE OFF)
 set(SDLMIXER_FLAC_LIBFLAC OFF)
 add_subdirectory(vendored/SDL_mixer EXCLUDE_FROM_ALL)
 
+# My src files
+set(SOURCES
+	src/main.c
+	src/game.c
+	src/init_sdl.c
+	src/load_media.c
+)
+
 # Create your game executable target as usual
-add_executable(main main.c)
+add_executable(main ${SOURCES})
+
+# My header files
+target_include_directories(main PRIVATE src)
 
 # Link to the actual SDL3 library.
 target_link_libraries(main PRIVATE SDL3_mixer::SDL3_mixer SDL3_image::SDL3_image SDL3::SDL3)

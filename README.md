@@ -1,5 +1,10 @@
 # test-sdl-game
 
+## Build
+Run following commands:
+    cmake -S .-B build
+    cmake --build build
+
 Consists of 3 submodules
 1. https://github.com/libsdl-org/SDL -> Most SDL files
 2. https://github.com/libsdl-org/SDL_image -> SDL image support
