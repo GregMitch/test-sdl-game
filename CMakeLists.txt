@@ -32,8 +32,9 @@ set(SDLMIXER_VORBIS_VORBISFILE OFF)
 set(SDLMIXER_FLAC_LIBFLAC OFF)
 add_subdirectory(vendored/SDL_mixer EXCLUDE_FROM_ALL)
 
-# This assumes the SDL_TTF source is available in vendored/SDL_TTF
-add_subdirectory(vendored/SDL_TTF EXCLUDE_FROM_ALL)
+# This assumes the SDL_ttf source is available in vendored/SDL_ttf
+set(SDLTTF_VENDORED ON)
+add_subdirectory(vendored/SDL_ttf EXCLUDE_FROM_ALL)
 
 
 # My src files
@@ -51,5 +52,5 @@ add_executable(main ${SOURCES})
 target_include_directories(main PRIVATE src)
 
 # Link to the actual SDL3 library.
-target_link_libraries(main PRIVATE SDL3_mixer::SDL3_mixer SDL3_image::SDL3_image SDL3::SDL3)
+target_link_libraries(main PRIVATE SDL3_mixer::SDL3_mixer SDL3_image::SDL3_image SDL3_ttf::SDL3_ttf SDL3::SDL3)
 
