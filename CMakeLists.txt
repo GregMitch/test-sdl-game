@@ -32,6 +32,10 @@ set(SDLMIXER_VORBIS_VORBISFILE OFF)
 set(SDLMIXER_FLAC_LIBFLAC OFF)
 add_subdirectory(vendored/SDL_mixer EXCLUDE_FROM_ALL)
 
+# This assumes the SDL_TTF source is available in vendored/SDL_TTF
+add_subdirectory(vendored/SDL_TTF EXCLUDE_FROM_ALL)
+
+
 # My src files
 set(SOURCES
 	src/main.c
