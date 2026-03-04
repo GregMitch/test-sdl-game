@@ -15,5 +15,9 @@
 #define WINDOW_TITLE "Random Colours"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
- 
+
+#define TEXT_SIZE 80
+#define TEXT_COLOUR (SDL_Color){255, 255, 255, 255}
+#define TEXT_STR "SDL"
+
 #endif

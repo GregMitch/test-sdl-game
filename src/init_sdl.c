@@ -13,7 +13,7 @@ bool game_init_sdl(struct Game *g)
 
 	if (!TTF_Init())
 	{
-		fprintf(stderr, "Error initializing SDL3: %s\n", SDL_GetError());
+		fprintf(stderr, "Error initializing SDL3_ttf: %s\n", SDL_GetError());
 		return false;
 	}
 

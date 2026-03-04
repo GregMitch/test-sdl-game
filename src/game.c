@@ -42,6 +42,18 @@ void game_free(struct Game **game)
 	{
 		struct Game *g = *game;
 
+		if (g->text_image)
+		{
+			SDL_DestroyTexture(g->text_image);
+			g->text_image = NULL;
+		}
+
+		if (g->text_font)
+		{
+			TTF_CloseFont(g->text_font);
+			g->text_font = NULL;
+		}
+
 		if (g->background)
 		{
 			SDL_DestroyTexture(g->background);
@@ -59,7 +71,8 @@ void game_free(struct Game **game)
 			SDL_DestroyWindow(g->window);
 			g->window = NULL;
 		}
-
+		
+		TTF_Quit();
 		SDL_Quit();
 	
 		free(g);
@@ -108,6 +121,7 @@ void game_draw(struct Game *g)
 	SDL_RenderClear(g->renderer);
 	
 	SDL_RenderTexture(g->renderer, g->background, NULL, NULL);
+	SDL_RenderTexture(g->renderer, g->text_image, NULL, &g->text_rect);
 
 	SDL_RenderPresent(g->renderer);
 }
