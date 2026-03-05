@@ -43,6 +43,7 @@ set(SOURCES
 	src/game.c
 	src/init_sdl.c
 	src/load_media.c
+	src/text.c
 )
 
 # Create your game executable target as usual

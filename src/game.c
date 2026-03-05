@@ -4,7 +4,8 @@
 
 void game_render_color(struct Game *g);
 void game_events(struct Game *g);
-void game_draw(struct Game *g);
+void game_update(struct Game *g);
+void game_draw(const struct Game *g);
 
 bool game_new(struct Game **game)
 {
@@ -29,6 +30,11 @@ bool game_new(struct Game **game)
 		return false;
 	}
 
+	if (!text_new(&g->text, g->renderer))
+	{
+		return false;
+	}
+
 	g->is_running = true;
 
 	srand((unsigned)time(NULL));
@@ -42,16 +48,9 @@ void game_free(struct Game **game)
 	{
 		struct Game *g = *game;
 
-		if (g->text_image)
+		if (g->text)
 		{
-			SDL_DestroyTexture(g->text_image);
-			g->text_image = NULL;
-		}
-
-		if (g->text_font)
-		{
-			TTF_CloseFont(g->text_font);
-			g->text_font = NULL;
+			text_free(&g->text);
 		}
 
 		if (g->background)
@@ -116,12 +115,17 @@ void game_events(struct Game *g)
 	}
 }
 
-void game_draw(struct Game *g)
+void game_update(struct Game *g)
+{
+	text_update(g->text);
+}
+
+void game_draw(const struct Game *g)
 {
 	SDL_RenderClear(g->renderer);
 	
 	SDL_RenderTexture(g->renderer, g->background, NULL, NULL);
-	SDL_RenderTexture(g->renderer, g->text_image, NULL, &g->text_rect);
+	text_draw(g->text);
 
 	SDL_RenderPresent(g->renderer);
 }
@@ -131,6 +135,7 @@ void game_run(struct Game *g)
 	while (g->is_running)
 	{
 		game_events(g);
+		game_update(g);
 		game_draw(g);
 		SDL_Delay(16);
 	}
