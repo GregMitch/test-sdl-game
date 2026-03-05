@@ -6,12 +6,12 @@
 
 struct Game
 {
-	SDL_Window *window;
-	SDL_Renderer *renderer;
-	SDL_Texture *background;
-	struct Text *text;
-	SDL_Event event;
-	bool is_running;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Texture *background;
+    struct Text *text;
+    SDL_Event event;
+    bool is_running;
 };
 
 bool game_new(struct Game **game);

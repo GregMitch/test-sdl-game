@@ -2,22 +2,22 @@
 
 bool game_load_media(struct Game *g)
 {
-	/* Commented out because my image has no background, so can't see colour changing.
-	g->background = IMG_LoadTexture(g->renderer, "images/cyberpunk.png");
-	if (!g->background)
-	{
-		fprintf(stderr, "Error loading texture: %s\n", SDL_GetError());
-		return false;
-	}
-	*/
+    /* Commented out because my image has no background, so can't see colour changing.
+    g->background = IMG_LoadTexture(g->renderer, "images/cyberpunk.png");
+    if (!g->background)
+    {
+        fprintf(stderr, "Error loading texture: %s\n", SDL_GetError());
+        return false;
+    }
+    */
 
-	/* Just shown as an example
-	if (!SDL_SetTextureScaleMode(g->text_image, SDL_SCALEMODE_NEAREST))
-	{
-		fprintf(stderr, "Error setting texture scale mode: %s\n", SDL_GetError());
-		return false;
-	}
-	*/
+    /* Just shown as an example
+    if (!SDL_SetTextureScaleMode(g->text_image, SDL_SCALEMODE_NEAREST))
+    {
+        fprintf(stderr, "Error setting texture scale mode: %s\n", SDL_GetError());
+        return false;
+    }
+    */
 
-	return true;
+    return true;
 }
