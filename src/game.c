@@ -30,6 +30,11 @@ bool game_new(struct Game **game)
         return false;
     }
 
+    if (!player_new(&g->player, g->renderer))
+    {
+        return false;
+    }
+
     if (!text_new(&g->text, g->renderer))
     {
         return false;
@@ -51,6 +56,11 @@ void game_free(struct Game **game)
         if (g->text)
         {
             text_free(&g->text);
+        }
+
+        if (g->player)
+        {
+            player_free(&g->player);
         }
 
         if (g->background)
@@ -117,6 +127,7 @@ void game_events(struct Game *g)
 
 void game_update(struct Game *g)
 {
+    player_update(g->player);
     text_update(g->text);
 }
 
@@ -125,6 +136,7 @@ void game_draw(const struct Game *g)
     SDL_RenderClear(g->renderer);
 
     SDL_RenderTexture(g->renderer, g->background, NULL, NULL);
+    player_draw(g->player);
     text_draw(g->text);
 
     SDL_RenderPresent(g->renderer);

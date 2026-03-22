@@ -45,6 +45,7 @@ set(SOURCES
 	src/load_media.c
 	src/text.c
 	src/bubble.c
+	src/player.c
 )
 
 # Create your game executable target as usual

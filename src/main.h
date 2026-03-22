@@ -12,7 +12,7 @@
 
 #define SDL_FLAGS SDL_INIT_VIDEO
 
-#define WINDOW_TITLE "Bubble Text"
+#define WINDOW_TITLE "Player Sprite"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
@@ -27,5 +27,7 @@
 #define TEXT_SIZE 100
 #define TEXT_STR "SDL"
 #define TEXT_VELOCITY 3
+
+#define PLAYER_VELOCITY 5
 
 #endif

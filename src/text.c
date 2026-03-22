@@ -4,7 +4,6 @@
 bool text_new(struct Text **text, SDL_Renderer *renderer)
 {
     *text = calloc(1, sizeof(struct Text));
-
     if (*text == NULL)
     {
         fprintf(stderr, "Error Calloc of New Text.\n");
@@ -13,7 +12,6 @@ bool text_new(struct Text **text, SDL_Renderer *renderer)
 
     // Allows us to avoid dereferencing text for rest of function
     struct Text *t = *text;
-
     t->renderer = renderer;
 
     SDL_Surface *surf = bubble_create_text(TEXT_STR, TEXT_SIZE, BUBBLE_RADIUS, WHITE_COLOUR, BLUE_COLOUR);

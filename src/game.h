@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "main.h"
+#include "player.h"
 #include "text.h"
 
 struct Game
@@ -9,6 +10,7 @@ struct Game
     SDL_Window *window;
     SDL_Renderer *renderer;
     SDL_Texture *background;
+    struct Player *player;
     struct Text *text;
     SDL_Event event;
     bool is_running;
