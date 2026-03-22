@@ -1,3 +1,4 @@
+#include "bubble.h"
 #include "text.h"
 
 bool text_new(struct Text **text, SDL_Renderer *renderer)
@@ -15,19 +16,9 @@ bool text_new(struct Text **text, SDL_Renderer *renderer)
 
     t->renderer = renderer;
 
-    TTF_Font *font = TTF_OpenFont("fonts/freesansbold.ttf", TEXT_SIZE);
-    if (!font)
-    {
-        fprintf(stderr, "Error opening font: %s\n", SDL_GetError());
-        return false;
-    }
-
-    SDL_Surface *surf = TTF_RenderText_Blended(font, TEXT_STR, 0, WHITE_COLOUR);
-    TTF_CloseFont(font);
-    font = NULL;
+    SDL_Surface *surf = bubble_create_text(TEXT_STR, TEXT_SIZE, BUBBLE_RADIUS, WHITE_COLOUR, BLUE_COLOUR);
     if (!surf)
     {
-        fprintf(stderr, "Error rendering text to surface: %s\n", SDL_GetError());
         return false;
     }
 

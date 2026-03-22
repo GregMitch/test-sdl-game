@@ -44,6 +44,7 @@ set(SOURCES
 	src/init_sdl.c
 	src/load_media.c
 	src/text.c
+	src/bubble.c
 )
 
 # Create your game executable target as usual
@@ -51,6 +52,12 @@ add_executable(main ${SOURCES})
 
 # My header files
 target_include_directories(main PRIVATE src)
+
+# Linking math library
+#find_library(MATH_LIBRARY m)
+#if(MATH_LIBRARY)
+#    target_link_libraries(main PUBLIC ${MATH_LIBRARY})
+#endif()
 
 # Link to the actual SDL3 library.
 target_link_libraries(main PRIVATE SDL3_mixer::SDL3_mixer SDL3_image::SDL3_image SDL3_ttf::SDL3_ttf SDL3::SDL3)

@@ -12,13 +12,19 @@
 
 #define SDL_FLAGS SDL_INIT_VIDEO
 
-#define WINDOW_TITLE "Moving Text"
+#define WINDOW_TITLE "Bubble Text"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
+#define BLUE_COLOUR (SDL_Color){137, 180, 250, 255}
 #define WHITE_COLOUR (SDL_Color){255, 255, 255, 255}
+#define BUBBLE_RADIUS 15
 
-#define TEXT_SIZE 80
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
+#define TEXT_SIZE 100
 #define TEXT_STR "SDL"
 #define TEXT_VELOCITY 3
 
