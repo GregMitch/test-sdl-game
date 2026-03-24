@@ -4,7 +4,7 @@
 Run following commands: \
     cd into `<root>/vendored/SDL_ttf/external` \
     ./download.sh \
-    cmake -S .-B build \
+    cmake -S . -B build \
     cmake --build build
 
 Consists of 4 submodules

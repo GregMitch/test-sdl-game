@@ -1,4 +1,5 @@
 #include "player.h"
+#include "bubble.h"
 
 bool player_new(struct Player **player, SDL_Renderer *renderer)
 {
@@ -13,10 +14,34 @@ bool player_new(struct Player **player, SDL_Renderer *renderer)
     struct Player *p = *player;
     p->renderer = renderer;
 
-    p->image = IMG_LoadTexture(p->renderer, "images/C-logo.png");
+    // p->image = IMG_LoadTexture(p->renderer, "images/C-logo.png");
+    // if (!p->image)
+    // {
+    //     fprintf(stderr, "Error loading player texture: %s\n", SDL_GetError());
+    //     return false;
+    // }
+
+    SDL_Surface *surf = IMG_Load("images/C-logo.png");
+    if (!surf)
+    {
+        fprintf(stderr, "Error loading surface: %s\n", SDL_GetError());
+        return false;
+    }
+
+    SDL_Surface *bubble_surf = bubble_surface(surf, BUBBLE_RADIUS, WHITE_COLOUR);
+    SDL_DestroySurface(surf);
+    surf = NULL;
+    if (!bubble_surf)
+    {
+        return false;
+    }
+
+    p->image = SDL_CreateTextureFromSurface(p->renderer, bubble_surf);
+    SDL_DestroySurface(bubble_surf);
+    bubble_surf = NULL;
     if (!p->image)
     {
-        fprintf(stderr, "Error loading player texture: %s\n", SDL_GetError());
+        fprintf(stderr, "Error creating player texture %s\n", SDL_GetError());
         return false;
     }
 
