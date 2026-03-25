@@ -8,8 +8,10 @@ int main()
 
     if (game_new(&game))
     {
-        game_run(game);
-        exit_status = EXIT_SUCCESS;
+        if (game_run(game))
+        {
+            exit_status = EXIT_SUCCESS;
+        }
     }
 
     game_free(&game);

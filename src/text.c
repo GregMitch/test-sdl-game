@@ -60,7 +60,7 @@ void text_free(struct Text **text)
     }
 }
 
-void text_update(struct Text *t)
+void text_update(struct Text *t, MIX_Track *track)
 {
     t->rect.x += t->x_vel;
     t->rect.y += t->y_vel;
@@ -70,10 +70,12 @@ void text_update(struct Text *t)
         // Example of clamping
         // t->rect.x = WINDOW_WIDTH - t->rect.w;
         t->x_vel = -TEXT_VELOCITY;
+        MIX_PlayTrack(track, 0);
     }
     else if (t->rect.x < 0)
     {
         t->x_vel = TEXT_VELOCITY;
+        MIX_PlayTrack(track, 0);
     }
 
     if (t->rect.y + t->rect.h > WINDOW_HEIGHT)
@@ -81,10 +83,12 @@ void text_update(struct Text *t)
         // Example of clamping
         // t->rect.y = WINDOW_HEIGHT - t->rect.h;
         t->y_vel = -TEXT_VELOCITY;
+        MIX_PlayTrack(track, 0);
     }
     else if (t->rect.y < 0)
     {
         t->y_vel = TEXT_VELOCITY;
+        MIX_PlayTrack(track, 0);
     }
 }
 

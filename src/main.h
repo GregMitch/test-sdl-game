@@ -5,6 +5,7 @@
 #include <SDL3/SDL_main.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3_mixer/SDL_mixer.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -12,7 +13,7 @@
 
 #define SDL_FLAGS SDL_INIT_VIDEO
 
-#define WINDOW_TITLE "Bubble Player"
+#define WINDOW_TITLE "Sound and Music"
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 

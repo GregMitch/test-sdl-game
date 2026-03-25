@@ -3,6 +3,7 @@
 #include "load_media.h"
 
 void game_render_color(struct Game *g);
+void game_toggle_music(struct Game *g);
 void game_events(struct Game *g);
 void game_update(struct Game *g);
 void game_draw(const struct Game *g);
@@ -81,6 +82,7 @@ void game_free(struct Game **game)
             g->window = NULL;
         }
 
+        MIX_Quit();
         TTF_Quit();
         SDL_Quit();
 
@@ -95,6 +97,19 @@ void game_free(struct Game **game)
 void game_render_color(struct Game *g)
 {
     SDL_SetRenderDrawColor(g->renderer, (Uint8)rand(), (Uint8)rand(), (Uint8)rand(), 255);
+    MIX_PlayTrack(g->track1, 0);
+}
+
+void game_toggle_music(struct Game *g)
+{
+    if (MIX_TrackPaused(g->music_track))
+    {
+        MIX_ResumeTrack(g->music_track);
+    }
+    else
+    {
+        MIX_PauseTrack(g->music_track);
+    }
 }
 
 void game_events(struct Game *g)
@@ -112,6 +127,9 @@ void game_events(struct Game *g)
             case SDL_SCANCODE_SPACE:
                 game_render_color(g);
                 break;
+            case SDL_SCANCODE_P:
+                game_toggle_music(g);
+                break;
             default:
                 break;
             }
@@ -128,7 +146,7 @@ void game_events(struct Game *g)
 void game_update(struct Game *g)
 {
     player_update(g->player);
-    text_update(g->text);
+    text_update(g->text, g->track2);
 }
 
 void game_draw(const struct Game *g)
@@ -142,8 +160,18 @@ void game_draw(const struct Game *g)
     SDL_RenderPresent(g->renderer);
 }
 
-void game_run(struct Game *g)
+bool game_run(struct Game *g)
 {
+    // Creating props and destroying in game_run is lazy but it works
+    SDL_PropertiesID props = SDL_CreateProperties();
+    // Set loops: 0 = once, -1 = infinite
+    SDL_SetNumberProperty(props, MIX_PROP_PLAY_LOOPS_NUMBER, -1);
+    if (!MIX_PlayTrack(g->music_track, props))
+    {
+        fprintf(stderr, "Error playing Music: %s\n", SDL_GetError());
+        return false;
+    }
+    
     while (g->is_running)
     {
         game_events(g);
@@ -151,4 +179,7 @@ void game_run(struct Game *g)
         game_draw(g);
         SDL_Delay(16);
     }
+
+    SDL_DestroyProperties(props);
+    return true;
 }

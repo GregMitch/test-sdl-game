@@ -17,6 +17,12 @@ bool game_init_sdl(struct Game *g)
         return false;
     }
 
+    if (!MIX_Init())
+    {
+        fprintf(stderr, "Error initializing SDL3_mixer: %s\n", SDL_GetError());
+        return false;
+    }
+
     g->window = SDL_CreateWindow(WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     if (!g->window)
     {

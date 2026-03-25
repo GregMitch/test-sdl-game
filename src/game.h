@@ -14,10 +14,19 @@ struct Game
     struct Text *text;
     SDL_Event event;
     bool is_running;
+    
+    //Audio stuff
+    MIX_Mixer *mixer;
+    MIX_Audio *audio1;
+    MIX_Track *track1;
+    MIX_Audio *audio2;
+    MIX_Track *track2;
+    MIX_Audio *music;
+    MIX_Track *music_track;
 };
 
 bool game_new(struct Game **game);
 void game_free(struct Game **game);
-void game_run(struct Game *g);
+bool game_run(struct Game *g);
 
 #endif
